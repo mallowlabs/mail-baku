@@ -1,0 +1,78 @@
+<#import "../layout/defaultLayout.ftl.html" as layout> 
+<@layout.myLayout i18n("inbox.index.title")>    
+
+<h3>
+  <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+  ${i18n("inbox.index.title")}
+</h3>
+
+<div class="toolbar">
+  <a type="button" class="btn btn-default" title="${i18n('inbox.index.refresh')}" href="${contextPath}/">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+  </a>
+  <div class="pull-right">
+    <div class="btn-group" role="group">
+      <#if first.isPresent() >
+        <a type="button" class="btn btn-default" href="${contextPath}/?next=${first.get().id}" title="${i18n('inbox.index.prev')}">
+          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </a>
+      <#else>
+        <a type="button" class="btn btn-default" href="${contextPath}/" title="${i18n('inbox.index.prev')}">
+          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </a>
+      </#if>
+      <#if last.isPresent() >
+        <a type="button" class="btn btn-default" href="${contextPath}/?prev=${last.get().id}" title="${i18n('inbox.index.next')}">
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        </a>
+      <#else>
+        <a type="button" class="btn btn-default" href="${contextPath}/" title="${i18n('inbox.index.next')}">
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        </a>
+      </#if>
+    </div>
+  </div>
+</div>
+
+<div class="mail-list">
+  <#if mails?size gt 0>
+    <#list mails as m>
+      <div class="mail" title="${m.content}">
+        <div>
+          <a class="mail-subject" href="${contextPath}/inbox/${m.id}">
+            ${m.subject}
+          </a>
+          <div class="pull-right">${prettyTime(m.sentDate)}</div>
+        </div>
+        <div>
+          <div class="ellipsis">
+            <#if m.attached>
+              <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            </#if>
+            To: ${m.toAddressesReadable}
+          </div>
+        </div>
+      </div>
+    </#list>
+  <#else>
+    <div class="alert alert-warning">Any mails not found.</div>
+  </#if>
+</div>
+ 
+<style>
+.mail-list {
+  border-top: 1px solid #eee;
+}
+.mail-subject {
+  font-size: 110%;
+}
+.mail {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: #888;
+  border-bottom: 1px solid #eee;
+  min-height: 40px;
+}
+</style>
+
+</@layout.myLayout>

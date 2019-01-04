@@ -1,0 +1,45 @@
+<#import "../layout/defaultLayout.ftl.html" as layout> 
+<@layout.myLayout mail.subject>    
+
+<h3>
+  <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
+  ${mail.subject}
+</h3>
+
+<div class="toolbar">
+  <a type="button" class="btn btn-default" title="${i18n('inbox.show.raw')}" href="${contextPath}/inbox/${mail.id}/raw">
+    ${i18n('inbox.show.raw')}
+  </a>
+</div>
+
+<div>
+  <pre>Subject: ${mail.subject}
+To: ${mail.toAddressesReadable}
+<#if mail.ccAddressesReadable?has_content>
+Cc: ${mail.ccAddressesReadable}
+</#if>
+<#if mail.bccAddressesReadable?has_content>
+Bcc: ${mail.bccAddressesReadable}
+</#if>
+From: ${mail.fromAddressesReadable}
+Date: ${mail.sentDate?date} ${mail.sentDate?time}
+
+${mail.content}</pre>
+</div>
+
+<#if mail.attached>
+<h4 style="margin-top: 20px">
+<span class="glyphicon glyphicon-duplicate" aria-hidden="true" ></span>
+${i18n('inbox.show.attachments')}
+</h4>
+<ul>
+<#list mail.attachments as attachment>
+  <li>
+    <a target="_blank" href="${contextPath}/inbox/${mail.id}/attachment/${attachment.index}/${attachment.filenameEncoded}">${attachment.filename}</a>
+    <span style="color: #999">(${attachment.contentType})</span>
+  </li>
+</#list>
+</ul>
+</#if>
+
+</@layout.myLayout>

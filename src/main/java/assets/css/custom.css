@@ -1,0 +1,31 @@
+/* Add additional stylesheets below
+-------------------------------------------------- */
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.error-template {padding: 40px 15px;text-align: center;}
+.navbar-inverse {
+    background-color: #003861;
+    border-color: #00233c;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    background-color: #00233c;
+}
+ .navbar-inverse .navbar-toggle {
+    border-color: #00233c;
+}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #00233c;
+}
+.navbar-inverse .navbar-brand {
+	color: white;
+}
+.ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.toolbar {
+  margin-bottom: 10px;
+}

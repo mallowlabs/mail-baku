@@ -1,0 +1,36 @@
+<#import "../layout/defaultLayout.ftl.html" as layout> 
+<@layout.myLayout i18n("server.index.title")>    
+
+<h3>
+  <span class="glyphicon glyphicon-hdd" aria-hidden="true" ></span>
+  ${i18n("server.index.title")}
+</h3>
+
+<table class="table table-striped table-bordered table-hover">
+  <tbody>
+    <tr>
+      <th>${i18n('server.index.status')}</th>
+      <td>
+<#if server.running>
+<span class="label label-success">Running</span>
+<#else>
+<span class="label label-danger">Stopped</span>
+</#if>
+      </td>
+    </tr>
+    <tr>
+      <th>${i18n('server.index.address')}</th>
+      <td>${server.bindAddress}</td>
+    </tr>
+    <tr>
+      <th>${i18n('server.index.port')}</th>
+      <td>${server.port}</td>
+    </tr>
+    <tr>
+      <th>${i18n('server.index.name')}</th>
+      <td>${server.softwareName}</td>
+    </tr>
+  </tbody>
+</table>
+
+</@layout.myLayout>

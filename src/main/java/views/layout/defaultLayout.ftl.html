@@ -1,0 +1,42 @@
+<#macro myLayout title="Layout">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>${title} | ${i18n('application.name')}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="mail-baku">
+    <meta name="author" content="">
+
+    <link href="${contextPath}/assets/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/assets/css/custom.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/png" href="${contextPath}/assets/img/favicon.png">
+  </head>
+<body>
+
+    <div class="container">
+        
+        <#include "header.ftl.html"/>
+        
+        <#if (flash.error)??>
+            <div class="alert alert-danger">
+                ${flash.error}
+            </div>
+        </#if>
+        
+        <#if (flash.success)??>
+            <div class="alert alert-success">
+                ${flash.success}
+            </div>
+        </#if>
+
+        <#nested/>
+
+        
+    </div> <!-- /container -->
+    <script type="text/javascript" src="${contextPath}/assets/webjars/jquery/2.1.3/jquery.js"></script>
+    <script type="text/javascript" src="${contextPath}/assets/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
+</#macro>
