@@ -73,11 +73,25 @@ public class Inbox {
     }
 
     public List<Mail> listPrev(int limit, String prev) throws IOException {
-        return listIds().stream().filter(s -> StringUtils.isEmpty(prev) || s.compareTo(prev) < 0).limit(limit).map(s -> this.getSafe(s)).filter(m -> m != null).collect(Collectors.toList());
+        return listIds()
+            .stream()
+            .filter(s -> StringUtils.isEmpty(prev) || s.compareTo(prev) < 0)
+            .limit(limit)
+            .map(s -> this.getSafe(s))
+            .filter(m -> m != null)
+            .sorted((m1, m2) -> m2.getSentDate().compareTo(m1.getSentDate()))
+            .collect(Collectors.toList());
     }
 
     public List<Mail> listNext(int limit, String next) throws IOException {
-        return listIds().stream().filter(s -> StringUtils.isEmpty(next) || s.compareTo(next) > 0).limit(limit).map(s -> this.getSafe(s)).filter(m -> m != null).collect(Collectors.toList());
+        return listIds()
+            .stream()
+            .filter(s -> StringUtils.isEmpty(next) || s.compareTo(next) > 0)
+            .limit(limit)
+            .map(s -> this.getSafe(s))
+            .filter(m -> m != null)
+            .sorted((m1, m2) -> m2.getSentDate().compareTo(m1.getSentDate()))
+            .collect(Collectors.toList());
     }
 
     public Mail get(String id) throws IOException, MessagingException {
