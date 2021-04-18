@@ -2,7 +2,7 @@
 mail-baku は、Tomcat にデプロイできる mock / fake / dummy SMTP サーバです。
 
 ### 実行に必要な要件
-* Tomcat 7+
+* Tomcat 8+
 * Java 8+
 
 ### ビルドに必要な要件
@@ -23,7 +23,7 @@ $ mvn package
 ### 設定
 `$TOMCAT_HOME/extensions/` に対応しています。有効な設定は以下です。
 ```
-# application.conf
+# conf/application.conf
 mail-baku.mail.bind.address=0.0.0.0
 mail-baku.mail.port=1025
 mail-baku.allowed.addresses=127.0.0.1

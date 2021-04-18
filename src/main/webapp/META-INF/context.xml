@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-  <Loader
-    className="org.apache.catalina.loader.VirtualWebappLoader"
-    searchExternalFirst="true"
-    virtualClasspath="${catalina.base}/extensions/mail-baku/WEB-INF/classes"
-  />
+  <Resources>
+    <PreResources
+      base="${catalina.base}/extensions/mail-baku/WEB-INF/classes/"
+      className="org.apache.catalina.webresources.DirResourceSet"
+      webAppMount="/WEB-INF/classes"/>
+  </Resources>
 </Context>
