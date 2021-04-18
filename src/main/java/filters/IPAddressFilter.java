@@ -27,14 +27,22 @@ public class IPAddressFilter implements Filter {
             return filterChain.next(context);
         }
 
+        String remoteIpAddress = context.getHeader("X-Forwarded-For");
+        if (StringUtils.isNotBlank(remoteIpAddress)) {
+            remoteIpAddress = StringUtils.substring(remoteIpAddress, 0, StringUtils.indexOf(remoteIpAddress, ":"));
+        } else {
+            remoteIpAddress = context.getRemoteAddr();
+        }
+
         String[] allowedAddresses = StringUtils.split(ninjaProperties.get("mail-baku.allowed.addresses"), ',');
         for (String address : allowedAddresses) {
             SubnetUtils allowedSubnet = createSubnetUtils(address);
-            if (allowed(context.getRemoteAddr(), allowedSubnet)) {
+            if (allowed(remoteIpAddress, allowedSubnet)) {
                 return filterChain.next(context);
             }
         }
 
+        logger.error("IP address not allowed. ip = " + remoteIpAddress);
         return Results.forbidden().text().render("IP address not allowed.");
     }
 
@@ -43,7 +51,7 @@ public class IPAddressFilter implements Filter {
             return true;
         }
         try {
-            subnet.setInclusiveHostCount(true); // xx.xx.xx.xx/32 に対応するため
+            subnet.setInclusiveHostCount(true);
             return subnet.getInfo().isInRange(remoteIpAddress);
         } catch (IllegalArgumentException e) {
             logger.error("Failed to parse ip address", e);
