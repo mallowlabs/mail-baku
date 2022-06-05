@@ -1,0 +1,19 @@
+version: 2
+updates:
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      timezone: "Asia/Tokyo"
+    ignore:
+      - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
+      - dependency-name: "org.webjars:bootstrap"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      timezone: "Asia/Tokyo"
