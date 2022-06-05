@@ -16,15 +16,15 @@
 <body>
 
     <div class="container">
-        
+
         <#include "header.ftl.html"/>
-        
+
         <#if (flash.error)??>
             <div class="alert alert-danger">
                 ${flash.error}
             </div>
         </#if>
-        
+
         <#if (flash.success)??>
             <div class="alert alert-success">
                 ${flash.success}
@@ -33,7 +33,7 @@
 
         <#nested/>
 
-        
+
     </div> <!-- /container -->
     <script type="text/javascript" src="${contextPath}/assets/webjars/jquery/3.6.0/jquery.js"></script>
     <script type="text/javascript" src="${contextPath}/assets/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
