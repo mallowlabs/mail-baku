@@ -10,7 +10,7 @@
     <!-- uncomment the dependency for ninja-servlet -->
     <packaging>war</packaging>
     <groupId>com.github.mallowlabs</groupId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
 
     <properties>
         <ninja.version>6.9.0</ninja.version>
