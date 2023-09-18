@@ -19,5 +19,5 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '8'
+          java-version-file: '.java-version'
       - run: mvn package
