@@ -41,7 +41,7 @@ public class SubEthaSMTPLifecycle {
             smtpServer.setBindAddress(InetAddress.getByName(ninjaProperties.getWithDefault("mail-baku.mail.bind.address", "0.0.0.0")));
             smtpServer.setPort(ninjaProperties.getIntegerWithDefault("mail-baku.mail.port", 1025));
             smtpServer.start();
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
             logger.error("Failed to start mail server.", e);
         }
     }
