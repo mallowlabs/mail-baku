@@ -13,7 +13,7 @@
     <version>0.4-SNAPSHOT</version>
 
     <properties>
-        <ninja.version>6.9.0</ninja.version>
+        <ninja.version>7.0.0</ninja.version>
         <jetty.version>9.4.45.v20220203</jetty.version>
     </properties>
 
