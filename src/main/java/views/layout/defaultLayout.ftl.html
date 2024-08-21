@@ -19,6 +19,7 @@
     <div class="container">
 
         <#include "header.ftl.html"/>
+        <main>
 
         <#if (flash.error)??>
             <div class="alert alert-danger">
@@ -34,6 +35,7 @@
 
         <#nested/>
 
+        </main>
 
     </div> <!-- /container -->
     <script type="text/javascript" src="${contextPath}/assets/webjars/jquery/3.7.1/jquery.js"></script>

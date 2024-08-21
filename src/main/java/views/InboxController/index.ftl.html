@@ -2,31 +2,31 @@
 <@layout.myLayout i18n("inbox.index.title")>
 
 <h3>
-  <span class="bi bi-inbox" aria-hidden="true"></span>
+  <span class="bi bi-inbox-fill" aria-hidden="true"></span>
   ${i18n("inbox.index.title")}
 </h3>
 
 <div class="toolbar">
-  <a type="button" class="btn btn-secondary" title="${i18n('inbox.index.refresh')}" href="${contextPath}/">
+  <a type="button" class="btn btn-outline-secondary" title="${i18n('inbox.index.refresh')}" href="${contextPath}/">
     <span class="bi bi-arrow-clockwise" aria-hidden="true"></span>
   </a>
   <div class="float-right">
     <div class="btn-group" role="group">
       <#if first.isPresent()>
-        <a type="button" class="btn btn-secondary" href="${contextPath}/?next=${first.get().id}" title="${i18n('inbox.index.prev')}">
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/?next=${first.get().id}" title="${i18n('inbox.index.prev')}">
           <span class="bi bi-chevron-left" aria-hidden="true"></span>
         </a>
       <#else>
-        <a type="button" class="btn btn-secondary" href="${contextPath}/" title="${i18n('inbox.index.prev')}">
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/" title="${i18n('inbox.index.prev')}">
           <span class="bi bi-chevron-left" aria-hidden="true"></span>
         </a>
       </#if>
       <#if last.isPresent()>
-        <a type="button" class="btn btn-secondary" href="${contextPath}/?prev=${last.get().id}" title="${i18n('inbox.index.next')}">
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/?prev=${last.get().id}" title="${i18n('inbox.index.next')}">
           <span class="bi bi-chevron-right" aria-hidden="true"></span>
         </a>
       <#else>
-        <a type="button" class="btn btn-secondary" href="${contextPath}/" title="${i18n('inbox.index.next')}">
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/" title="${i18n('inbox.index.next')}">
           <span class="bi bi-chevron-right" aria-hidden="true"></span>
         </a>
       </#if>
@@ -64,7 +64,7 @@
   border-top: 1px solid #eee;
 }
 .mail-subject {
-  font-size: 110%;
+  font-size: 1.1rem;
 }
 .mail {
   padding-top: 8px;

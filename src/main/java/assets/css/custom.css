@@ -1,24 +1,15 @@
 /* Add additional stylesheets below
 -------------------------------------------------- */
-body {
-    padding-top: 60px;
+main {
+    padding-top: 80px;
     padding-bottom: 40px;
 }
 .error-template {padding: 40px 15px;text-align: center;}
-.navbar-inverse {
+.bg-mailbaku {
     background-color: #003861;
     border-color: #00233c;
 }
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
-    background-color: #00233c;
-}
- .navbar-inverse .navbar-toggle {
-    border-color: #00233c;
-}
-.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
-    background-color: #00233c;
-}
-.navbar-inverse .navbar-brand {
+.bg-mailbaku .navbar-brand {
 	color: white;
 }
 .ellipsis {
