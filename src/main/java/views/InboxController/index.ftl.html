@@ -10,7 +10,7 @@
   <a type="button" class="btn btn-outline-secondary" title="${i18n('inbox.index.refresh')}" href="${contextPath}/">
     <span class="bi bi-arrow-clockwise" aria-hidden="true"></span>
   </a>
-  <div class="float-right">
+  <div class="float-end">
     <div class="btn-group" role="group">
       <#if first.isPresent()>
         <a type="button" class="btn btn-outline-secondary" href="${contextPath}/?next=${first.get().id}" title="${i18n('inbox.index.prev')}">
@@ -42,10 +42,10 @@
           <a class="mail-subject" href="${contextPath}/inbox/${m.id}">
             ${m.subject}
           </a>
-          <div class="float-right">${prettyTime(m.sentDate)}</div>
+          <div class="float-end">${prettyTime(m.sentDate)}</div>
         </div>
         <div>
-          <div class="ellipsis">
+          <div class="text-truncate">
             <#if m.attached>
               <span class="bi bi-file-earmark" aria-hidden="true"></span>
             </#if>
