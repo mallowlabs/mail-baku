@@ -1,8 +1,8 @@
-<#import "../layout/defaultLayout.ftl.html" as layout> 
-<@layout.myLayout i18n("server.index.title")>    
+<#import "../layout/defaultLayout.ftl.html" as layout>
+<@layout.myLayout i18n("server.index.title")>
 
 <h3>
-  <span class="glyphicon glyphicon-hdd" aria-hidden="true" ></span>
+  <span class="bi bi-hdd" aria-hidden="true"></span>
   ${i18n("server.index.title")}
 </h3>
 
@@ -12,9 +12,9 @@
       <th>${i18n('server.index.status')}</th>
       <td>
 <#if server.running>
-<span class="label label-success">Running</span>
+<span class="badge badge-success">Running</span>
 <#else>
-<span class="label label-danger">Stopped</span>
+<span class="badge badge-danger">Stopped</span>
 </#if>
       </td>
     </tr>

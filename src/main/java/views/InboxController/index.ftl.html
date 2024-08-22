@@ -1,33 +1,33 @@
-<#import "../layout/defaultLayout.ftl.html" as layout> 
-<@layout.myLayout i18n("inbox.index.title")>    
+<#import "../layout/defaultLayout.ftl.html" as layout>
+<@layout.myLayout i18n("inbox.index.title")>
 
 <h3>
-  <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+  <span class="bi bi-inbox-fill" aria-hidden="true"></span>
   ${i18n("inbox.index.title")}
 </h3>
 
 <div class="toolbar">
-  <a type="button" class="btn btn-default" title="${i18n('inbox.index.refresh')}" href="${contextPath}/">
-    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+  <a type="button" class="btn btn-outline-secondary" title="${i18n('inbox.index.refresh')}" href="${contextPath}/">
+    <span class="bi bi-arrow-clockwise" aria-hidden="true"></span>
   </a>
-  <div class="pull-right">
+  <div class="float-right">
     <div class="btn-group" role="group">
-      <#if first.isPresent() >
-        <a type="button" class="btn btn-default" href="${contextPath}/?next=${first.get().id}" title="${i18n('inbox.index.prev')}">
-          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      <#if first.isPresent()>
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/?next=${first.get().id}" title="${i18n('inbox.index.prev')}">
+          <span class="bi bi-chevron-left" aria-hidden="true"></span>
         </a>
       <#else>
-        <a type="button" class="btn btn-default" href="${contextPath}/" title="${i18n('inbox.index.prev')}">
-          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/" title="${i18n('inbox.index.prev')}">
+          <span class="bi bi-chevron-left" aria-hidden="true"></span>
         </a>
       </#if>
-      <#if last.isPresent() >
-        <a type="button" class="btn btn-default" href="${contextPath}/?prev=${last.get().id}" title="${i18n('inbox.index.next')}">
-          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      <#if last.isPresent()>
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/?prev=${last.get().id}" title="${i18n('inbox.index.next')}">
+          <span class="bi bi-chevron-right" aria-hidden="true"></span>
         </a>
       <#else>
-        <a type="button" class="btn btn-default" href="${contextPath}/" title="${i18n('inbox.index.next')}">
-          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        <a type="button" class="btn btn-outline-secondary" href="${contextPath}/" title="${i18n('inbox.index.next')}">
+          <span class="bi bi-chevron-right" aria-hidden="true"></span>
         </a>
       </#if>
     </div>
@@ -42,12 +42,12 @@
           <a class="mail-subject" href="${contextPath}/inbox/${m.id}">
             ${m.subject}
           </a>
-          <div class="pull-right">${prettyTime(m.sentDate)}</div>
+          <div class="float-right">${prettyTime(m.sentDate)}</div>
         </div>
         <div>
           <div class="ellipsis">
             <#if m.attached>
-              <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+              <span class="bi bi-file-earmark" aria-hidden="true"></span>
             </#if>
             To: ${m.toAddressesReadable}
           </div>
@@ -58,13 +58,13 @@
     <div class="alert alert-warning">Any mails not found.</div>
   </#if>
 </div>
- 
+
 <style>
 .mail-list {
   border-top: 1px solid #eee;
 }
 .mail-subject {
-  font-size: 110%;
+  font-size: 1.1rem;
 }
 .mail {
   padding-top: 8px;

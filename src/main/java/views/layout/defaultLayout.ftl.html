@@ -8,7 +8,8 @@
     <meta name="description" content="mail-baku">
     <meta name="author" content="">
 
-    <link href="${contextPath}/assets/webjars/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/assets/webjars/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/assets/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="${contextPath}/assets/css/custom.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/png" href="${contextPath}/assets/img/favicon.png">
@@ -18,6 +19,7 @@
     <div class="container">
 
         <#include "header.ftl.html"/>
+        <main>
 
         <#if (flash.error)??>
             <div class="alert alert-danger">
@@ -33,10 +35,11 @@
 
         <#nested/>
 
+        </main>
 
     </div> <!-- /container -->
     <script type="text/javascript" src="${contextPath}/assets/webjars/jquery/3.7.1/jquery.js"></script>
-    <script type="text/javascript" src="${contextPath}/assets/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${contextPath}/assets/webjars/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 </#macro>
