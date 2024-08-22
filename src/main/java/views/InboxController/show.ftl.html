@@ -7,7 +7,7 @@
 </h3>
 
 <div class="toolbar">
-  <a type="button" class="btn btn-secondary" title="${i18n('inbox.show.raw')}" href="${contextPath}/inbox/${mail.id}/raw">
+  <a type="button" class="btn btn-outline-secondary" title="${i18n('inbox.show.raw')}" href="${contextPath}/inbox/${mail.id}/raw">
     ${i18n('inbox.show.raw')}
   </a>
 </div>
@@ -41,5 +41,14 @@ ${i18n('inbox.show.attachments')}
 </#list>
 </ul>
 </#if>
+
+<style>
+  pre {
+    background-color: #f5f5f5;
+    padding: 9.5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
 
 </@layout.myLayout>
