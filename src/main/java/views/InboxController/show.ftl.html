@@ -1,13 +1,13 @@
-<#import "../layout/defaultLayout.ftl.html" as layout> 
-<@layout.myLayout mail.subject>    
+<#import "../layout/defaultLayout.ftl.html" as layout>
+<@layout.myLayout mail.subject>
 
 <h3>
-  <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
+  <span class="bi bi-envelope-fill" aria-hidden="true"></span>
   ${mail.subject}
 </h3>
 
 <div class="toolbar">
-  <a type="button" class="btn btn-default" title="${i18n('inbox.show.raw')}" href="${contextPath}/inbox/${mail.id}/raw">
+  <a type="button" class="btn btn-secondary" title="${i18n('inbox.show.raw')}" href="${contextPath}/inbox/${mail.id}/raw">
     ${i18n('inbox.show.raw')}
   </a>
 </div>
@@ -29,7 +29,7 @@ ${mail.content}</pre>
 
 <#if mail.attached>
 <h4 style="margin-top: 20px">
-<span class="glyphicon glyphicon-duplicate" aria-hidden="true" ></span>
+<span class="bi bi-files" aria-hidden="true"></span>
 ${i18n('inbox.show.attachments')}
 </h4>
 <ul>
