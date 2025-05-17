@@ -4,13 +4,13 @@ mail-baku is a mock / fake / dummy SMTP server that can be deployed on Tomcat.
 
 ### Requirements to Run
 
-* Tomcat 8+
-* Java 8+
+* Tomcat 9
+* Java 8
 
 ### Requirements to Build
 
-* JDK 8+
-* Maven 3.3.9+
+* JDK 8
+* Maven 3.9.9
 
 ### Build
 
@@ -22,11 +22,12 @@ The output artifact is `mail-baku.war`.
 ### Deploy
 
 Place `mail-baku.war` in `$TOMCAT_HOME/webapps`.
-Configure AJP as needed.
+Make the directory `$TOMCAT_HOME/extensions/mail-baku/WEB-INF/classes`.
 
 ### Configuration
 
-Supports `$TOMCAT_HOME/extensions/`. The available settings are as follows:
+Put `application.conf` to `$TOMCAT_HOME/extensions/mail-baku/WEB-INF/classes/conf/application.conf`.
+The available settings are as follows:
 ```
 # conf/application.conf
 mail-baku.mail.bind.address=0.0.0.0
