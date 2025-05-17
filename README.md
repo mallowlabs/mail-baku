@@ -1,27 +1,32 @@
 # mail-baku
-mail-baku は、Tomcat にデプロイできる mock / fake / dummy SMTP サーバです。
 
-### 実行に必要な要件
+mail-baku is a mock / fake / dummy SMTP server that can be deployed on Tomcat.
+
+### Requirements to Run
+
 * Tomcat 8+
 * Java 8+
 
-### ビルドに必要な要件
+### Requirements to Build
+
 * JDK 8+
 * Maven 3.3.9+
 
-### ビルド
+### Build
 
 ```
 $ mvn package
 ```
-`mail-baku.war` が成果物です。
+The output artifact is `mail-baku.war`.
 
-### デプロイ
-`$TOMCAT_HOME/webapps` に `mail-baku.war` を置いて下さい。
-必要に応じて AJP の設定をしてください。
+### Deploy
 
-### 設定
-`$TOMCAT_HOME/extensions/` に対応しています。有効な設定は以下です。
+Place `mail-baku.war` in `$TOMCAT_HOME/webapps`.
+Configure AJP as needed.
+
+### Configuration
+
+Supports `$TOMCAT_HOME/extensions/`. The available settings are as follows:
 ```
 # conf/application.conf
 mail-baku.mail.bind.address=0.0.0.0
