@@ -3,7 +3,7 @@
 # ===== Tools Stage =====
 FROM amazoncorretto:8 AS tools
 
-RUN yum install -y tar gzip && \
+RUN yum install -y tar-1.26-35.amzn2.0.4 gzip-1.5-10.amzn2.0.1 && \
     yum clean all && \
     rm -rf /var/cache/yum
 
