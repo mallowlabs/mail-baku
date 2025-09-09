@@ -26,3 +26,15 @@ jobs:
 
       - name: Build Docker image
         run: docker build --progress=plain .
+
+  hadolint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: hadolint
+        uses: hadolint/hadolint-action@v3.2.0
+        with:
+          dockerfile: ./Dockerfile
