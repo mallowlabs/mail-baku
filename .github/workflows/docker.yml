@@ -38,3 +38,27 @@ jobs:
         uses: hadolint/hadolint-action@v3.2.0
         with:
           dockerfile: ./Dockerfile
+
+  dockle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build --progress=plain -t mail-baku:${GITHUB_SHA} .
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: dockle
+        uses: goodwithtech/dockle-action@v0.4.15
+        with:
+          image: mail-baku:${{ github.sha }}
+          format: 'list'
+          exit-code: '1'
+          exit-level: 'fatal'
+          ignore: 'CIS-DI-0010'
