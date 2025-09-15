@@ -62,3 +62,29 @@ jobs:
           exit-code: '1'
           exit-level: 'fatal'
           ignore: 'CIS-DI-0010'
+
+  trivy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build --progress=plain -t mail-baku:${GITHUB_SHA} .
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: 'mail-baku:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os'
+          scanners: 'vuln'
+          severity: 'CRITICAL,HIGH'
