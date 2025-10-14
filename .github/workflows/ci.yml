@@ -18,6 +18,6 @@ jobs:
             ${{ runner.os }}-maven-
       - uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
+          distribution: 'corretto'
           java-version-file: '.java-version'
       - run: mvn package
