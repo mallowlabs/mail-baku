@@ -12,7 +12,7 @@ FROM tools AS build
 
 WORKDIR /app
 
-ENV MAVEN_VERSION=3.9.9
+ENV MAVEN_VERSION=3.9.11
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
     | tar xz -C /opt && \
