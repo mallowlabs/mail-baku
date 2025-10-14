@@ -10,7 +10,7 @@ mail-baku is a mock / fake / dummy SMTP server that can be deployed on Tomcat.
 ### Requirements to Build
 
 * JDK 11
-* Maven 3.9.9
+* Maven 3.9.11
 
 ### Build
 
