@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1
+# check=error=true
 
 # ===== Tools Stage =====
 FROM amazoncorretto:11 AS tools
