@@ -4,7 +4,8 @@
 # ===== Tools Stage =====
 FROM amazoncorretto:11 AS tools
 
-RUN yum install -y tar-1.26-35.amzn2.0.4 gzip-1.5-10.amzn2.0.1 && \
+RUN yum update -y --security && \
+    yum install -y tar-1.26-35.amzn2.0.4 gzip-1.5-10.amzn2.0.1 && \
     yum clean all && \
     rm -rf /var/cache/yum
 
