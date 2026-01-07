@@ -1,0 +1,14 @@
+# Git
+.git
+.gitignore
+.github
+
+# Maven
+target
+dependency-reduced-pom.xml
+
+# IDE
+.settings
+.project
+.classpath
+.vscode
