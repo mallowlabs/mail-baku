@@ -34,6 +34,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   hadolint:
+    needs: docker-build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -46,6 +47,7 @@ jobs:
           dockerfile: ./Dockerfile
 
   dockle:
+    needs: docker-build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -63,7 +65,6 @@ jobs:
           load: true
           tags: mail-baku:${{ github.sha }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       - name: dockle
         uses: goodwithtech/dockle-action@v0.4.15
@@ -75,6 +76,7 @@ jobs:
           ignore: 'CIS-DI-0010'
 
   trivy:
+    needs: docker-build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -92,7 +94,6 @@ jobs:
           load: true
           tags: mail-baku:${{ github.sha }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       - name: trivy
         uses: aquasecurity/trivy-action@0.33.1
