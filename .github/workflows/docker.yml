@@ -24,8 +24,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        run: docker build --progress=plain .
+      - name: Build and cache Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: mail-baku:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   hadolint:
     runs-on: ubuntu-latest
@@ -49,10 +55,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        run: docker build --progress=plain -t mail-baku:${GITHUB_SHA} .
-        env:
-          GITHUB_SHA: ${{ github.sha }}
+      - name: Build and load Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: mail-baku:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: dockle
         uses: goodwithtech/dockle-action@v0.4.15
@@ -73,10 +84,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        run: docker build --progress=plain -t mail-baku:${GITHUB_SHA} .
-        env:
-          GITHUB_SHA: ${{ github.sha }}
+      - name: Build and load Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: mail-baku:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: trivy
         uses: aquasecurity/trivy-action@0.33.1
