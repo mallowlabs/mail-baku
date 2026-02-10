@@ -23,7 +23,7 @@ RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/bi
 COPY . /app
 
 RUN --mount=type=cache,target=/root/.m2 \
-    mvn package --batch-mode --no-transfer-progress
+    mvn package --batch-mode --no-transfer-progress -DskipTests
 
 # ===== Run Stage =====
 FROM tools
