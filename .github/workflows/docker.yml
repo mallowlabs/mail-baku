@@ -96,7 +96,7 @@ jobs:
           cache-from: type=gha
 
       - name: trivy
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.34.0
         with:
           image-ref: 'mail-baku:${{ github.sha }}'
           format: 'table'
