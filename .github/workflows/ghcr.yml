@@ -5,8 +5,8 @@ on:
     branches: [ "master" ]
 
 permissions:
-    contents: read
-    packages: write
+  contents: read
+  packages: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
