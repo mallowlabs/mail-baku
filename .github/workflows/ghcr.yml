@@ -5,8 +5,8 @@ on:
     branches: [ "master" ]
 
 permissions:
-    contents: read
-    packages: write
+  contents: read
+  packages: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -92,9 +92,9 @@ jobs:
 
       - name: Create manifest list and push
         run: |
-          docker buildx imagetools create -t $REPO:latest \
-            $REPO@$AMD_DIGEST \
-            $REPO@$ARM_DIGEST
+          docker buildx imagetools create -t "$REPO:latest" \
+            "$REPO@$AMD_DIGEST" \
+            "$REPO@$ARM_DIGEST"
         env:
           REPO: ghcr.io/${{ github.repository }}
           AMD_DIGEST: ${{ needs.build-amd64.outputs.digest }}
