@@ -16,3 +16,10 @@ updates:
       interval: "weekly"
       day: "friday"
       timezone: "Asia/Tokyo"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      timezone: "Asia/Tokyo"
