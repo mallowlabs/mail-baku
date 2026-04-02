@@ -23,3 +23,6 @@ updates:
       interval: "weekly"
       day: "friday"
       timezone: "Asia/Tokyo"
+    ignore:
+      - dependency-name: "amazoncorretto"
+        versions: [">= 18"]
