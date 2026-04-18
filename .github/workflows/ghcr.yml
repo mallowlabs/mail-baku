@@ -4,9 +4,7 @@ on:
   push:
     branches: [ "master" ]
 
-permissions:
-  contents: read
-  packages: write
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,6 +14,9 @@ jobs:
   build-amd64:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
 
     outputs:
       digest: ${{ steps.build.outputs.digest }}
@@ -47,6 +48,9 @@ jobs:
   build-arm64:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
 
     outputs:
       digest: ${{ steps.build.outputs.digest }}
@@ -79,6 +83,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [build-amd64, build-arm64]
+    permissions:
+      packages: write
     steps:
       - name: Log in to GHCR
         uses: docker/login-action@v4
