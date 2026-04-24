@@ -2,7 +2,7 @@
 # check=error=true
 
 # ===== Tools Stage =====
-FROM amazoncorretto:17@sha256:220d0258ae529dac1e2260c6f61a85172ad0c5a9cb95786d2254037ec585e259 AS tools
+FROM amazoncorretto:17@sha256:92b30e07169c235b21750fdfaa864161c07b2a1a76d89ff550df23475ce523e4 AS tools
 
 RUN yum update -y --security && \
     yum install -y tar-1.26-35.amzn2.0.4 gzip-1.5-10.amzn2.0.1 && \
