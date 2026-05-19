@@ -36,9 +36,19 @@ RUN curl -fsSL --retry 5 --retry-connrefused --retry-delay 5 --connect-timeout 5
     | tar xz -C /opt && \
     mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat
 
+RUN yum install -y shadow-utils-4.1.5.1 && \
+    groupadd -r -g 1000 tomcat && \
+    useradd -r -u 1000 -g tomcat -d /opt/tomcat -s /sbin/nologin tomcat && \
+    yum remove -y shadow-utils && \
+    yum autoremove -y && \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
 COPY --from=build /app/target/mail-baku.war /opt/tomcat/webapps/
-RUN mkdir -p /opt/tomcat/extensions/mail-baku/WEB-INF/classes
+RUN mkdir -p /opt/tomcat/extensions/mail-baku/WEB-INF/classes && \
+    chown -R tomcat:tomcat /opt/tomcat
 
 EXPOSE 8080 1025
 
+USER tomcat
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
