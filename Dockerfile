@@ -2,12 +2,12 @@
 # check=error=true
 
 # ===== Tools Stage =====
-FROM amazoncorretto:17@sha256:049b43c80eb657fe5820922dbcf48458e85a7c023257f5dc394066645554b54a AS tools
+FROM amazoncorretto:17-al2023@sha256:a689595bb1ce147a77e019e44d600cb4c532031df20aa07d576b49b18e2dffed AS tools
 
-RUN yum update -y --security && \
-    yum install -y tar-1.26-35.amzn2.0.4 gzip-1.5-10.amzn2.0.1 && \
-    yum clean all && \
-    rm -rf /var/cache/yum
+RUN dnf update -y --security && \
+    dnf install -y tar-1.34 gzip-1.12 && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
 
 # ===== Build Stage =====
 FROM tools AS build
@@ -36,13 +36,13 @@ RUN curl -fsSL --retry 5 --retry-connrefused --retry-delay 5 --connect-timeout 5
     | tar xz -C /opt && \
     mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat
 
-RUN yum install -y shadow-utils-4.1.5.1 && \
+RUN dnf install -y shadow-utils-4.9 && \
     groupadd -r -g 1000 tomcat && \
     useradd -r -u 1000 -g tomcat -d /opt/tomcat -s /sbin/nologin tomcat && \
-    yum remove -y shadow-utils && \
-    yum autoremove -y && \
-    yum clean all && \
-    rm -rf /var/cache/yum
+    dnf remove -y shadow-utils && \
+    dnf autoremove -y && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
 
 COPY --from=build /app/target/mail-baku.war /opt/tomcat/webapps/
 RUN mkdir -p /opt/tomcat/extensions/mail-baku/WEB-INF/classes && \
