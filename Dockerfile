@@ -34,7 +34,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL --retry 5 --retry-connrefused --retry-delay 5 --connect-timeout 5 \
     https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
     | tar xz -C /opt && \
-    mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat
+    mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+    rm -rf /opt/tomcat/webapps/ROOT \
+           /opt/tomcat/webapps/manager \
+           /opt/tomcat/webapps/host-manager \
+           /opt/tomcat/webapps/docs \
+           /opt/tomcat/webapps/examples
 
 RUN dnf install -y shadow-utils-4.9 && \
     groupadd -r -g 1000 tomcat && \
@@ -45,6 +50,7 @@ RUN dnf install -y shadow-utils-4.9 && \
     rm -rf /var/cache/dnf
 
 COPY --from=build /app/target/mail-baku.war /opt/tomcat/webapps/
+COPY docker/ROOT/ /opt/tomcat/webapps/ROOT/
 RUN mkdir -p /opt/tomcat/extensions/mail-baku/WEB-INF/classes && \
     chown -R tomcat:tomcat /opt/tomcat
 
