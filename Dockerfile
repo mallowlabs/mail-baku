@@ -2,7 +2,7 @@
 # check=error=true
 
 # ===== Tools Stage =====
-FROM amazoncorretto:17-al2023@sha256:a689595bb1ce147a77e019e44d600cb4c532031df20aa07d576b49b18e2dffed AS tools
+FROM amazoncorretto:17-al2023-headless@sha256:824c40de586807682a31396bafa81660537f602f244e06969057728833934271 AS tools
 
 RUN dnf update -y --security && \
     dnf install -y tar-1.34 gzip-1.12 && \
