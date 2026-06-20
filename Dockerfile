@@ -29,7 +29,7 @@ RUN --mount=type=cache,target=/root/.m2 \
 # ===== Run Stage =====
 FROM tools
 
-ENV TOMCAT_VERSION=9.0.111
+ENV TOMCAT_VERSION=9.0.118
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL --retry 5 --retry-connrefused --retry-delay 5 --connect-timeout 5 \
     https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
