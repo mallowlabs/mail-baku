@@ -10,8 +10,8 @@ import java.util.Optional;
 import javax.mail.Address;
 import javax.mail.internet.MimeUtility;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
