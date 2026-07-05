@@ -94,9 +94,21 @@ public class Inbox {
             .collect(Collectors.toList());
     }
 
+    /**
+     * Resolves a mail id to its file, rejecting ids that would escape the
+     * inbox directory (path traversal).
+     */
+    protected File resolveMailFile(String id) throws IOException {
+        File file = new File(directory, id + Mail.EXT);
+        if (!file.getCanonicalPath().startsWith(directory.getCanonicalPath() + File.separator)) {
+            throw new IllegalArgumentException("Invalid mail id: " + id);
+        }
+        return file;
+    }
+
     public Mail get(String id) throws IOException, MessagingException {
         Mail mail = new Mail();
-        File mailFile = new File(directory, id + Mail.EXT);
+        File mailFile = resolveMailFile(id);
         try (InputStream in = new FileInputStream(mailFile)) {
             Session session = Session.getDefaultInstance(new Properties(), null);
             MimeMessage message = new MimeMessage(session, in);
@@ -142,7 +154,7 @@ public class Inbox {
     }
 
     public InputStream getAttachmentStream(String id, int index) throws IOException, MessagingException {
-        try (InputStream in = new FileInputStream(new File(directory, id + Mail.EXT))) {
+        try (InputStream in = new FileInputStream(resolveMailFile(id))) {
             Session session = Session.getDefaultInstance(new Properties(), null);
             MimeMessage message = new MimeMessage(session, in);
             if (message.getContent() instanceof MimeMultipart) {
@@ -157,7 +169,7 @@ public class Inbox {
     }
 
     public byte[] getRaw(String id) throws IOException {
-        return FileUtils.readFileToByteArray(new File(directory, id + Mail.EXT));
+        return FileUtils.readFileToByteArray(resolveMailFile(id));
     }
 
     public Mail getSafe(String id) {
