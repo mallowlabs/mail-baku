@@ -2,7 +2,33 @@
 # check=error=true
 
 # ===== Tools Stage =====
-FROM amazoncorretto:17-al2023-headless@sha256:c6390520144e4e05cef7235cccb3e0ca298f920e2e869d153dc2006dc2d31355 AS tools
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20260622.0@sha256:da8159b6af7d20f55f7e5da633dab214c04cac9ea660bb60963b6bca30c8a6a0 AS tools
+
+ARG version=17.0.19.10-1
+ARG package_version=1
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=DL3041
+RUN set -eux && \
+    ARCH="$(rpm --query --queryformat='%{ARCH}' rpm)" && \
+    rpm --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-linux-2023 && \
+    echo "localpkg_gpgcheck=1" >> /etc/dnf/dnf.conf && \
+    CORRETO_TEMP=$(mktemp -d) && \
+    pushd "${CORRETO_TEMP}" && \
+    RPM_LIST=("java-17-amazon-corretto-headless-$version.amzn2023.${package_version}.${ARCH}.rpm") && \
+    for rpm in "${RPM_LIST[@]}"; do \
+        curl --fail -O "https://corretto.aws/downloads/resources/$(echo $version | tr '-' '.')/${rpm}" && \
+        rpm -K "${CORRETO_TEMP}/${rpm}" | grep -F "${CORRETO_TEMP}/${rpm}: digests signatures OK"; \
+    done && \
+    dnf install -y "${CORRETO_TEMP}"/*.rpm && \
+    popd && \
+    rm -rf "/usr/lib/jvm/java-17-amazon-corretto.${ARCH}/lib/src.zip" && \
+    rm -rf "${CORRETO_TEMP}" && \
+    dnf clean all && \
+    sed -i '/localpkg_gpgcheck=1/d' /etc/dnf/dnf.conf
+
+ENV LANG=C.UTF-8
+ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
 
 RUN dnf update -y --security && \
     dnf install -y tar-1.34 gzip-1.12 && \
