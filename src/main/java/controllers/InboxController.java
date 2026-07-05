@@ -55,7 +55,7 @@ public class InboxController {
 
     public Result raw(@PathParam("id") String id) throws Exception {
         byte[] data = inbox.getRaw(id);
-        return Results.contentType("text/plan").renderRaw(data);
+        return Results.contentType("text/plain").renderRaw(data);
     }
 
 }
