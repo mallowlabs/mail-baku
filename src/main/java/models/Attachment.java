@@ -3,8 +3,6 @@ package models;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Attachment {
 
     private int index;
@@ -56,7 +54,6 @@ public class Attachment {
         this.contentType = contentType;
     }
 
-    @JsonIgnore
     public String getFilenameEncoded() throws UnsupportedEncodingException {
         return URLEncoder.encode(this.getFilename(), "UTF-8");
     }
