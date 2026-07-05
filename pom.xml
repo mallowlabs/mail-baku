@@ -179,11 +179,6 @@
             <artifactId>bootstrap-icons</artifactId>
             <version>1.13.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>4.0.0</version>
-        </dependency>
 
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->
