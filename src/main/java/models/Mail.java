@@ -13,8 +13,6 @@ import javax.mail.internet.MimeUtility;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Mail {
     private String id;
     private String subject;
@@ -161,27 +159,22 @@ public class Mail {
     /**
      * @return the attached
      */
-    @JsonIgnore
     public boolean isAttached() {
         return ArrayUtils.isNotEmpty(getAttachments());
     }
 
-    @JsonIgnore
     public String getToAddressesReadable() {
         return getAddressesReadable(getToAddresses());
     }
 
-    @JsonIgnore
     public String getCcAddressesReadable() {
         return getAddressesReadable(getCcAddresses());
     }
 
-    @JsonIgnore
     public String getBccAddressesReadable() {
         return getAddressesReadable(getBccAddresses());
     }
 
-    @JsonIgnore
     public String getFromAddressesReadable() {
         return getAddressesReadable(getFromAddresses());
     }
