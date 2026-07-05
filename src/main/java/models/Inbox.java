@@ -96,7 +96,8 @@ public class Inbox {
 
     public Mail get(String id) throws IOException, MessagingException {
         Mail mail = new Mail();
-        try (InputStream in = new FileInputStream(new File(directory, id + Mail.EXT))) {
+        File mailFile = new File(directory, id + Mail.EXT);
+        try (InputStream in = new FileInputStream(mailFile)) {
             Session session = Session.getDefaultInstance(new Properties(), null);
             MimeMessage message = new MimeMessage(session, in);
 
@@ -129,7 +130,12 @@ public class Inbox {
             mail.setCcAddresses(message.getRecipients(Message.RecipientType.CC));
             mail.setBccAddresses(message.getRecipients(Message.RecipientType.BCC));
             mail.setFromAddresses(message.getFrom());
-            mail.setSentDate(message.getSentDate());
+            // Fall back to the stored file timestamp for mails without a Date header
+            Date sentDate = message.getSentDate();
+            if (sentDate == null) {
+                sentDate = new Date(mailFile.lastModified());
+            }
+            mail.setSentDate(sentDate);
         }
 
         return mail;
