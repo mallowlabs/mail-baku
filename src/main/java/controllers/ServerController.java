@@ -1,28 +1,30 @@
 package controllers;
 
-import org.subethamail.smtp.server.SMTPServer;
+import java.util.Map;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import filters.IPAddressFilter;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
 import lifecycles.SubEthaSMTPLifecycle;
-import ninja.FilterWith;
-import ninja.Result;
-import ninja.Results;
+import views.ViewRenderer;
 
-@Singleton
-@FilterWith(IPAddressFilter.class)
+@Path("server")
 public class ServerController {
 
     @Inject
     SubEthaSMTPLifecycle lifecycle;
 
-    public Result index() throws Exception {
-        SMTPServer server = lifecycle.getSMTPServer();
-        Result result = Results.html();
-        result.render("server", server);
-        return result;
+    @Inject
+    ViewRenderer views;
+
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public String index(@Context HttpHeaders headers) throws Exception {
+        return views.render("ServerController/index.ftl.html", Map.of("server", lifecycle.getSMTPServer()), headers);
     }
 
 }

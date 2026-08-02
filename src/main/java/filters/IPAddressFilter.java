@@ -1,49 +1,51 @@
 package filters;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.util.SubnetUtils;
-import org.slf4j.Logger;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
+import org.jboss.resteasy.reactive.server.ServerRequestFilter;
 
-import com.google.inject.Inject;
+import io.vertx.ext.web.RoutingContext;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import ninja.Context;
-import ninja.Filter;
-import ninja.FilterChain;
-import ninja.Result;
-import ninja.Results;
-import ninja.utils.NinjaProperties;
+public class IPAddressFilter {
 
-public class IPAddressFilter implements Filter {
+    private static final Logger logger = Logger.getLogger(IPAddressFilter.class);
 
-    @Inject
-    Logger logger;
+    @ConfigProperty(name = "mail-baku.allowed.addresses")
+    Optional<String> allowedAddresses;
 
-    @Inject
-    NinjaProperties ninjaProperties;
-
-    @Override
-    public Result filter(FilterChain filterChain, Context context) {
-        if (StringUtils.isBlank(ninjaProperties.get("mail-baku.allowed.addresses"))) {
-            return filterChain.next(context);
+    @ServerRequestFilter
+    public Optional<Response> filter(ContainerRequestContext context, RoutingContext routingContext) {
+        if (StringUtils.isBlank(allowedAddresses.orElse(null))) {
+            return Optional.empty();
         }
 
-        String remoteIpAddress = context.getHeader("X-Forwarded-For");
+        String remoteIpAddress = context.getHeaderString("X-Forwarded-For");
         if (StringUtils.isNotBlank(remoteIpAddress)) {
             remoteIpAddress = StringUtils.substring(remoteIpAddress, 0, StringUtils.indexOf(remoteIpAddress, ":"));
         } else {
-            remoteIpAddress = context.getRemoteAddr();
+            remoteIpAddress = routingContext.request().remoteAddress().hostAddress();
         }
 
-        String[] allowedAddresses = StringUtils.split(ninjaProperties.get("mail-baku.allowed.addresses"), ',');
-        for (String address : allowedAddresses) {
+        String[] allowedList = StringUtils.split(allowedAddresses.get(), ',');
+        for (String address : allowedList) {
             SubnetUtils allowedSubnet = createSubnetUtils(address);
             if (allowed(remoteIpAddress, allowedSubnet)) {
-                return filterChain.next(context);
+                return Optional.empty();
             }
         }
 
         logger.error("IP address not allowed. ip = " + remoteIpAddress);
-        return Results.forbidden().text().render("IP address not allowed.");
+        return Optional.of(Response.status(Response.Status.FORBIDDEN)
+                .type(MediaType.TEXT_PLAIN)
+                .entity("IP address not allowed.")
+                .build());
     }
 
     protected boolean allowed(String remoteIpAddress, SubnetUtils subnet) {

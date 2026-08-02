@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.logging.Logger;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -24,32 +31,27 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import com.google.inject.Inject;
-
-import ninja.utils.NinjaProperties;
-
+@ApplicationScoped
 public class Inbox {
 
-    @Inject
-    private Logger logger;
-
-    @Inject
-    NinjaProperties ninjaProperties;
+    private static final Logger logger = Logger.getLogger(Inbox.class);
 
     private File directory;
 
-    public Inbox() throws IOException {
-        File tmp = File.createTempFile("mail-baku", "txt");
-        directory = new File(tmp.getParentFile(), "mail-baku");
-        tmp.delete();
-        if (!directory.exists()) {
-            directory.mkdirs();
+    @PostConstruct
+    void init() {
+        try {
+            File tmp = File.createTempFile("mail-baku", "txt");
+            directory = new File(tmp.getParentFile(), "mail-baku");
+            tmp.delete();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 
