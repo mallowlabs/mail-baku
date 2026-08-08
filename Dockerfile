@@ -82,5 +82,5 @@ RUN mkdir -p /opt/tomcat/extensions/mail-baku/WEB-INF/classes && \
 
 EXPOSE 8080 1025
 
-USER tomcat
+USER 1000:1000
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
