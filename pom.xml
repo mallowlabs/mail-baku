@@ -16,7 +16,7 @@
         <ninja.version>7.0.0</ninja.version>
         <jetty.version>9.4.58.v20250814</jetty.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
     </properties>
 
     <build>
