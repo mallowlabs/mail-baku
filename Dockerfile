@@ -4,7 +4,7 @@
 # ===== Tools Stage =====
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20260917.1@sha256:50f4b89f09091b7c33f6a194b45d842b21aa8f9c7642679733feabffdeaf7404 AS tools
 
-ARG version=17.0.19.10-1
+ARG version=21.0.12.9-1
 ARG package_version=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -15,20 +15,20 @@ RUN set -eux && \
     echo "localpkg_gpgcheck=1" >> /etc/dnf/dnf.conf && \
     CORRETO_TEMP=$(mktemp -d) && \
     pushd "${CORRETO_TEMP}" && \
-    RPM_LIST=("java-17-amazon-corretto-headless-$version.amzn2023.${package_version}.${ARCH}.rpm") && \
+    RPM_LIST=("java-21-amazon-corretto-headless-$version.amzn2023.${package_version}.${ARCH}.rpm") && \
     for rpm in "${RPM_LIST[@]}"; do \
         curl --fail -O "https://corretto.aws/downloads/resources/$(echo $version | tr '-' '.')/${rpm}" && \
         rpm -K "${CORRETO_TEMP}/${rpm}" | grep -F "${CORRETO_TEMP}/${rpm}: digests signatures OK"; \
     done && \
     dnf install -y "${CORRETO_TEMP}"/*.rpm && \
     popd && \
-    rm -rf "/usr/lib/jvm/java-17-amazon-corretto.${ARCH}/lib/src.zip" && \
+    rm -rf "/usr/lib/jvm/java-21-amazon-corretto.${ARCH}/lib/src.zip" && \
     rm -rf "${CORRETO_TEMP}" && \
     dnf clean all && \
     sed -i '/localpkg_gpgcheck=1/d' /etc/dnf/dnf.conf
 
 ENV LANG=C.UTF-8
-ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 
 RUN dnf update -y --security && \
     dnf install -y tar-1.34 gzip-1.12 && \
