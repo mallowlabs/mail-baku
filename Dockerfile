@@ -4,7 +4,7 @@
 # ===== Tools Stage =====
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20261021.0@sha256:d9b4c61f49de68d41e43af1c0ef89c5600b0ad51da024406a15f5d014720c998 AS tools
 
-ARG version=21.0.12.9-1
+ARG version=21.0.12.13-1
 ARG package_version=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -55,7 +55,7 @@ RUN --mount=type=cache,target=/root/.m2 \
 # ===== Run Stage =====
 FROM tools
 
-ENV TOMCAT_VERSION=9.0.118
+ENV TOMCAT_VERSION=9.0.123
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL --retry 5 --retry-connrefused --retry-delay 5 --connect-timeout 5 \
     https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
