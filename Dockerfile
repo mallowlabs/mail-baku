@@ -4,7 +4,7 @@
 # ===== Tools Stage =====
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20261029.0@sha256:28a08196a0bbf69de31f481c74aebbfdc2c70a39b4a2002a4b30662ca5548062 AS tools
 
-ARG version=21.0.12.13-1
+ARG version=21.0.13.0.11-1
 ARG package_version=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -17,7 +17,7 @@ RUN set -eux && \
     pushd "${CORRETO_TEMP}" && \
     RPM_LIST=("java-21-amazon-corretto-headless-$version.amzn2023.${package_version}.${ARCH}.rpm") && \
     for rpm in "${RPM_LIST[@]}"; do \
-        curl --fail -O "https://corretto.aws/downloads/resources/$(echo $version | tr '-' '.')/${rpm}" && \
+        curl --fail -O "https://corretto.aws/downloads/resources/${version%-*}/${rpm}" && \
         rpm -K "${CORRETO_TEMP}/${rpm}" | grep -F "${CORRETO_TEMP}/${rpm}: digests signatures OK"; \
     done && \
     dnf install -y "${CORRETO_TEMP}"/*.rpm && \
