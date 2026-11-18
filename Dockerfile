@@ -4,7 +4,7 @@
 # ===== Tools Stage =====
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20261112.0@sha256:5c6ed3b38335b2aa424a045f1e564c8c508409ead0ff3f8bf5e62c31b94082cb AS tools
 
-ARG version=21.0.13.0.11-1
+ARG version=21.0.13.1.2-1
 ARG package_version=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
