@@ -30,8 +30,7 @@ RUN set -eux && \
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 
-RUN dnf update -y --security && \
-    dnf install -y tar-1.34 gzip-1.12 && \
+RUN dnf install -y tar-1.34 gzip-1.12 && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
