@@ -2,7 +2,7 @@
 # check=error=true
 
 # ===== Tools Stage =====
-FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20261119.0@sha256:985137e5576397a78ac3160e8b1dbc4104fc20b8694307a98579fa40d8ac54dc AS tools
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023.12.20261120.0@sha256:5c38fd85b00ce8c094315d9b71f671f880052314a22bd25f1a027821bf61d9d7 AS tools
 
 ARG version=21.0.13.1.2-1
 ARG package_version=1
